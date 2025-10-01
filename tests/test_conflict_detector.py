@@ -71,3 +71,26 @@ def test_near_miss_scenario():
 
     conflict_info = find_conflict(mission_A, mission_B, safety_buffer=5.0)
     assert conflict_info is None
+
+def test_altitude_separation_no_conflict():
+    # Two missions cross in X/Y but are separated in Z by more than the safety buffer
+    mission_A = Mission(
+        id="A",
+        waypoints=[
+            Waypoint3D(x=0, y=50, z=10),
+            Waypoint3D(x=100, y=50, z=10)
+        ],
+        timestamps=[0.0, 10.0]
+    )
+
+    mission_B = Mission(
+        id="B",
+        waypoints=[
+            Waypoint3D(x=50, y=0, z=20),
+            Waypoint3D(x=50, y=100, z=20)
+        ],
+        timestamps=[0.0, 10.0]
+    )
+
+    conflict_info = find_conflict(mission_A, mission_B, safety_buffer=5.0)
+    assert conflict_info is None
