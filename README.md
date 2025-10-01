@@ -10,8 +10,8 @@ To get the project running locally, follow these steps:
 
 1.  **Clone the repository:**
     ```bash
-    git clone <https://github.com/Abhijeet857/flytbase-assessment.gite>
-    cd <cd flytbase-assessment>
+    git clone https://github.com/Abhijeet857/flytbase-assessment.git
+    cd cd flytbase-assessment
     ```
 
 2.  **Create and activate a virtual environment:**

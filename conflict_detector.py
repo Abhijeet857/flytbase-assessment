@@ -29,8 +29,20 @@ def calculate_distance(p1: Waypoint3D, p2: Waypoint3D) -> float:
     return ((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2 + (p1.z - p2.z) ** 2) ** 0.5
 
 def find_conflict(mission1: Mission, mission2: Mission, safety_buffer: float):
+    """
+    Simulates two missions and checks for spatiotemporal conflicts.
+
+    Args:
+        mission1: The first mission object.
+        mission2: The second mission object.
+        safety_buffer: The minimum allowed distance between drones.
+
+    Returns:
+        A dictionary with conflict info if a conflict is found, otherwise None.
+    """
+    # Iterate through time at a fixed step
     time = 0.0
-    end_time = 10.0
+    end_time = max(mission1.timestamps[-1], mission2.timestamps[-1])
     step = 0.5
     while time <= end_time + 1e-6:  # small epsilon to include 10.0
         pos1 = get_position_at_time(mission1, time)
