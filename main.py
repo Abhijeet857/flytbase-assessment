@@ -4,8 +4,8 @@ from visualization import animate_missions
 primary_mission = Mission(
     id="primary",
     waypoints=[
-        Waypoint3D(x=0, y=50, z=10),
-        Waypoint3D(x=100, y=50, z=10)
+        Waypoint3D(x=0, y=50, z=20),
+        Waypoint3D(x=100, y=50, z=20)
     ],
     timestamps=[0.0, 10.0]
 )
