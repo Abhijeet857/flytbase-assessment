@@ -1,6 +1,11 @@
 from data_models import Waypoint3D, Mission
 
 def get_position_at_time(mission: Mission, time_t: float) -> Waypoint3D:
+    # ----> ADD THIS CHECK AT THE TOP <----
+    if len(mission.waypoints) != len(mission.timestamps):
+        raise ValueError("Mission data is malformed: The number of waypoints must equal the number of timestamps.")
+    # ----> END OF NEW CODE <----
+
     waypoints = mission.waypoints
     timestamps = mission.timestamps
 

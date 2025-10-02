@@ -4,6 +4,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 import pytest
 from data_models import Waypoint3D, Mission
 from conflict_detector import find_conflict
+from conflict_detector import get_position_at_time
 
 def test_conflict_scenario():
     primary_mission = Mission(
@@ -94,3 +95,18 @@ def test_altitude_separation_no_conflict():
 
     conflict_info = find_conflict(mission_A, mission_B, safety_buffer=5.0)
     assert conflict_info is None
+
+def test_malformed_data_handling():
+    # Mission with 3 waypoints but only 2 timestamps (malformed)
+    malformed_mission = Mission(
+        id="malformed",
+        waypoints=[
+            Waypoint3D(x=0, y=0, z=10),
+            Waypoint3D(x=50, y=50, z=10),
+            Waypoint3D(x=100, y=100, z=10)
+        ],
+        timestamps=[0.0, 10.0]
+    )
+    # Try to get position at a time that would require interpolation
+    with pytest.raises(Exception):
+        get_position_at_time(malformed_mission, 5.0)
